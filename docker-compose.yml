@@ -9,6 +9,14 @@ services:
       - "8761:8761"
     networks:
       - app-network
+  config-service:
+    build:
+      context: ./config-service
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - app-network
 
 networks:
   app-network:
