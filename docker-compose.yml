@@ -1,22 +1,28 @@
 version: '3.8'
 
 services:
-  eureka-service:
-    build:
-      context: ./eureka-service
-      dockerfile: Dockerfile
+  poke-eureka-service:
+    container_name: poke-eureka-service
+    image: peppermint100/poke-eureka-service:1.0
     ports:
       - "8761:8761"
     networks:
       - app-network
-  config-service:
-    build:
-      context: ./config-service
-      dockerfile: Dockerfile
+  poke-config-service:
+    container_name: poke-config-service
+    image: peppermint100/poke-config-service:1.0
     ports:
       - "8888:8888"
     networks:
       - app-network
+  pokemon-type-service:
+    container_name: pokemon-type-service
+    image: peppermint100/pokemon-type-service:1.0
+    networks:
+      - app-network
+    depends_on:
+      - poke-eureka-service
+      - poke-config-service
 
 networks:
   app-network:

@@ -1,11 +1,11 @@
 spring:
   application:
-    name: eureka-service
+    name: poke-eureka-service
 
 server:
   port: 8761
 
 eureka:
   client:
-    register-with-eureka: false # ?? ??? Eureka ??? ???? ???.
+    register-with-eureka: false
     fetch-registry: false
