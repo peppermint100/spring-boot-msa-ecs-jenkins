@@ -15,6 +15,16 @@ services:
       - "8888:8888"
     networks:
       - app-network
+  poke-gateway-service:
+    container_name: poke-gateway-service
+    image: peppermint100/poke-gateway-service:1.0
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - poke-eureka-service
+      - poke-config-service
   pokemon-type-service:
     container_name: pokemon-type-service
     image: peppermint100/pokemon-type-service:1.0
@@ -23,6 +33,7 @@ services:
     depends_on:
       - poke-eureka-service
       - poke-config-service
+      - poke-gateway-service
 
 networks:
   app-network:

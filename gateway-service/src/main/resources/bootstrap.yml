@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://poke-config-service:8888
+      name: gatewayservice
+  profiles:
+    active: dev

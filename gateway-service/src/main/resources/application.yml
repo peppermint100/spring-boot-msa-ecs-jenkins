@@ -1,0 +1,12 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: poke-gateway-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
