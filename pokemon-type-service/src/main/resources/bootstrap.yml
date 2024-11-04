@@ -1,7 +1,9 @@
 spring:
+  application:
+    name: pokemon-type-service   # 실제 애플리케이션 이름
   cloud:
     config:
       uri: http://poke-config-service:8888
-      name: pokemontypeservice
+      name: pokemontypeservice       # Config Server에 저장된 설정 이름
   profiles:
     active: dev

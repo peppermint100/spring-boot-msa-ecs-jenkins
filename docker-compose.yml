@@ -10,14 +10,16 @@ services:
       - app-network
   poke-config-service:
     container_name: poke-config-service
-    image: peppermint100/poke-config-service:1.0
+    image: peppermint100/poke-config-service:1.1
     ports:
       - "8888:8888"
     networks:
       - app-network
+    depends_on:
+      - rabbitmq
   poke-gateway-service:
     container_name: poke-gateway-service
-    image: peppermint100/poke-gateway-service:1.1
+    image: peppermint100/poke-gateway-service:1.3
     ports:
       - "8000:8000"
     networks:
@@ -25,9 +27,11 @@ services:
     depends_on:
       - poke-eureka-service
       - poke-config-service
+      - poke-mysql
+      - rabbitmq
   pokemon-type-service:
     container_name: pokemon-type-service
-    image: peppermint100/pokemon-type-service:1.2
+    image: peppermint100/pokemon-type-service:1.3
     networks:
       - app-network
     depends_on:
@@ -35,6 +39,7 @@ services:
       - poke-config-service
       - poke-gateway-service
       - poke-mysql
+      - rabbitmq
   poke-mysql:
     container_name: poke-mysql
     image: mysql:8.0
@@ -58,6 +63,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+
 networks:
   app-network:
     driver: bridge

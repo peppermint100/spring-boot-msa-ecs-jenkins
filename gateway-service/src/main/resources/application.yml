@@ -1,10 +1,6 @@
 server:
   port: 8000
 
-spring:
-  application:
-    name: poke-gateway-service
-
 management:
   endpoints:
     web:
