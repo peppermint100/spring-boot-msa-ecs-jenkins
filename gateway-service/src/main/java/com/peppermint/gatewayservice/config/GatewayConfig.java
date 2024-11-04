@@ -10,7 +10,7 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("poketype-hello", r -> r.path("/pokemon-type-service/hello")
+                .route("poketype", r -> r.path("/pokemon-type-service/**")
                         .and()
                         .method("GET")
                         .filters(f -> f.rewritePath("/pokemon-type-service/(?<segment>.*)", "/${segment}"))

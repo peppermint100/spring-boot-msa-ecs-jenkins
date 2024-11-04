@@ -17,7 +17,7 @@ services:
       - app-network
   poke-gateway-service:
     container_name: poke-gateway-service
-    image: peppermint100/poke-gateway-service:1.0
+    image: peppermint100/poke-gateway-service:1.1
     ports:
       - "8000:8000"
     networks:
@@ -27,13 +27,24 @@ services:
       - poke-config-service
   pokemon-type-service:
     container_name: pokemon-type-service
-    image: peppermint100/pokemon-type-service:1.0
+    image: peppermint100/pokemon-type-service:1.2
     networks:
       - app-network
     depends_on:
       - poke-eureka-service
       - poke-config-service
       - poke-gateway-service
+      - poke-mysql
+  poke-mysql:
+    container_name: poke-mysql
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=pokemon        
 
 networks:
   app-network:
