@@ -45,7 +45,19 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=pokemon        
-
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:4-management-alpine
+    ports: 
+      - "15672:15672"
+      - "5672:5672"
+      - "15671:15671"
+      - "4369:4369"
+    networks:
+      - app-network
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
 networks:
   app-network:
     driver: bridge
