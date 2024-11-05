@@ -12,9 +12,14 @@ public class GatewayConfig {
         return builder.routes()
                 .route("poketype", r -> r.path("/pokemon-type-service/**")
                         .and()
-                        .method("GET", "POST")
+                        .method("GET")
                         .filters(f -> f.rewritePath("/pokemon-type-service/(?<segment>.*)", "/${segment}"))
                         .uri("lb://POKEMON-TYPE-SERVICE"))
+                .route("pokemons", r -> r.path("/pokemon-service/**")
+                        .and()
+                        .method("GET")
+                        .filters(f -> f.rewritePath("/pokemon-service/(?<segment>.*)", "/${segment}"))
+                        .uri("lb://POKEMON-SERVICE"))
                 .build();
     }
 }
