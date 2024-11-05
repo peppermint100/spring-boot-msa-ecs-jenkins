@@ -10,13 +10,15 @@ services:
       - app-network
   poke-gateway-service:
     container_name: poke-gateway-service
-    image: peppermint100/poke-gateway-service:1.5
+    image: peppermint100/poke-gateway-service:1.6
     ports:
       - "8000:8000"
     networks:
       - app-network
     depends_on:
       - poke-eureka-service
+    environment:
+      - spring.profiles.active=prod
   pokemon-type-service:
     container_name: pokemon-type-service
     image: peppermint100/pokemon-type-service:1.4
@@ -26,6 +28,19 @@ services:
       - poke-eureka-service
       - poke-gateway-service
       - poke-mysql
+    environment:
+      - spring.profiles.active=prod
+  pokemon-service:
+    container_name: pokemon-service
+    image: peppermint100/pokemon-service:1.1
+    networks:
+      - app-network
+    depends_on:
+      - poke-eureka-service
+      - poke-gateway-service
+      - poke-mysql
+    environment:
+      - spring.profiles.active=prod
   poke-mysql:
     container_name: poke-mysql
     image: mysql:8.0
