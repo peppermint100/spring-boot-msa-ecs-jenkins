@@ -1,5 +1,7 @@
 package com.peppermint100.pokemonservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,5 +25,10 @@ public enum PokemonType {
             }
         }
         return Optional.empty();
+    }
+
+    @JsonCreator
+    public static PokemonType jsonCreator(String value) {
+        return value == null ? null : PokemonType.valueOf(value.toUpperCase());
     }
 }

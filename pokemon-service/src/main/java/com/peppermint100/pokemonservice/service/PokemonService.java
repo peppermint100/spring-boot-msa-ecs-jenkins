@@ -15,4 +15,8 @@ public class PokemonService {
     public Iterable<Pokemon> getPokemonByType(PokemonType type) {
         return repository.getPokemonsByType(type);
     }
+
+    public Pokemon addPokemon(Pokemon pokemon) {
+        return repository.save(pokemon);
+    }
 }
