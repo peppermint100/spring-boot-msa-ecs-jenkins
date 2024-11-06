@@ -1,11 +1,14 @@
 package com.peppermint.pokemontypeservice.jpa;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "pokemon_type")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PokemonType {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
