@@ -1,8 +1,8 @@
 package com.peppermint100.pokemonservice.controller;
 
 import com.peppermint100.pokemonservice.client.PokemonTypeClient;
-import com.peppermint100.pokemonservice.dto.PokemonType;
 import com.peppermint100.pokemonservice.jpa.Pokemon;
+import com.peppermint100.pokemonservice.messagequeue.PokemonTypeProducer;
 import com.peppermint100.pokemonservice.service.PokemonService;
 import com.peppermint100.pokemonservice.vo.RequestCreatePokemon;
 import com.peppermint100.pokemonservice.vo.ResponsePokemon;
@@ -22,10 +22,11 @@ public class PokemonController {
 
     private final PokemonService service;
     private final PokemonTypeClient pokemonTypeClient;
+    private final PokemonTypeProducer pokemonTypeProducer;
 
     @GetMapping("/pokemons/{type}")
     public ResponseEntity<List<ResponsePokemon>> getPokemonsByType(
-            @PathVariable Optional<PokemonType> type
+            @PathVariable String type
             ) {
         List<ResponsePokemon> result = new ArrayList<>();
 
@@ -33,19 +34,15 @@ public class PokemonController {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
 
-        PokemonType requestPokemonType = type.get();
         List<ResponsePokemonType> allPokemonTypes = pokemonTypeClient.getAllPokemonTypes();
 
-        List<PokemonType> validPokemonTypes = allPokemonTypes.stream().map(responsePokemonType -> {
-            Optional<PokemonType> pokemonTypeOptional = PokemonType.fromString(responsePokemonType.getName());
-            return pokemonTypeOptional.orElse(null);
-        }).toList();
+        List<String> validPokemonTypes = allPokemonTypes.stream().map(responsePokemonType -> responsePokemonType.getName()).toList();
 
-        if (!validPokemonTypes.contains(requestPokemonType)) {
+        if (!validPokemonTypes.contains(type)) {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
 
-        Iterable<Pokemon> pokemonEntities = service.getPokemonByType(requestPokemonType);
+        Iterable<Pokemon> pokemonEntities = service.getPokemonByType(type);
 
         for (Pokemon entity : pokemonEntities) {
             result.add(ResponsePokemon.fromEntity(entity));
@@ -61,6 +58,8 @@ public class PokemonController {
         Pokemon pokemonEntity = Pokemon.from(requestCreatePokemon);
         service.addPokemon(pokemonEntity);
         ResponsePokemon result = ResponsePokemon.fromEntity(pokemonEntity);
+        String type = requestCreatePokemon.getType();
+        pokemonTypeProducer.send(type);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

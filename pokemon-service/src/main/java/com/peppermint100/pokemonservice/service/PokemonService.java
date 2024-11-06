@@ -1,6 +1,5 @@
 package com.peppermint100.pokemonservice.service;
 
-import com.peppermint100.pokemonservice.dto.PokemonType;
 import com.peppermint100.pokemonservice.jpa.Pokemon;
 import com.peppermint100.pokemonservice.jpa.PokemonRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,7 @@ public class PokemonService {
 
     private final PokemonRepository repository;
 
-    public Iterable<Pokemon> getPokemonByType(PokemonType type) {
+    public Iterable<Pokemon> getPokemonByType(String type) {
         return repository.getPokemonsByType(type);
     }
 

@@ -1,6 +1,5 @@
 package com.peppermint100.pokemonservice.jpa;
 
-import com.peppermint100.pokemonservice.dto.PokemonType;
 import com.peppermint100.pokemonservice.vo.RequestCreatePokemon;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,10 +21,9 @@ public class Pokemon {
     private String name;
 
     @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private PokemonType type;
+    private String type;
 
-    protected Pokemon(String name, PokemonType type) {
+    protected Pokemon(String name, String type) {
         this.name = name;
         this.type = type;
     }
