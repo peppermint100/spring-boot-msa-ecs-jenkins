@@ -13,4 +13,12 @@ public class PokemonType {
 
     @Column(name = "name")
     private String name;
+
+    protected PokemonType(String name) {
+        this.name = name;
+    }
+
+    public static PokemonType of(String name) {
+        return new PokemonType(name);
+    }
 }
