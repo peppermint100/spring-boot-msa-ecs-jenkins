@@ -11,7 +11,7 @@ services:
 
   poke-gateway-service:
     container_name: poke-gateway-service
-    image: peppermint100/poke-gateway-service:1.5
+    image: peppermint100/poke-gateway-service:1.7
     ports:
       - "8000:8000"
     networks:
@@ -23,7 +23,7 @@ services:
 
   pokemon-type-service:
     container_name: pokemon-type-service
-    image: peppermint100/pokemon-type-service:1.4
+    image: peppermint100/pokemon-type-service:1.6
     networks:
       - app-network
     depends_on:
@@ -37,7 +37,7 @@ services:
       
   pokemon-service:
     container_name: pokemon-service
-    image: peppermint100/pokemon-service:1.1
+    image: peppermint100/pokemon-service:1.3
     networks:
       - app-network
     depends_on:
@@ -95,6 +95,6 @@ services:
 networks:
   app-network:
     ipam:
-      driver: bridge
+      driver: default
       config:
         - subnet: 172.26.0.0/16

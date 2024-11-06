@@ -36,3 +36,7 @@ management:
     web:
       exposure:
         include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+
+developer:
+  kafka:
+    bootstrap-server: http://172.26.0.101:9092
