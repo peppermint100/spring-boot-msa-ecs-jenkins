@@ -23,7 +23,7 @@ services:
 
   pokemon-type-service:
     container_name: pokemon-type-service
-    image: peppermint100/pokemon-type-service:1.6
+    image: peppermint100/pokemon-type-service:1.7
     networks:
       - app-network
     depends_on:
