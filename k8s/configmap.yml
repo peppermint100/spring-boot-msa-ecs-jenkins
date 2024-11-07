@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: poke-k8s-configmap
+data:
+  pokemon-type-service-url: "http://pokemon-type-service:10000"
+  bootstrap-servers: "192.168.65.3:9092"
