@@ -32,6 +32,9 @@ public class PokemonTypeConsumer {
         }
 
         String typeName = (String) map.get("type");
+
+        if (pokemonTypeRepository.findByName(typeName) == null) { return; }
+
         PokemonType pokemonTypeEntity = PokemonType.of(typeName);
         pokemonTypeRepository.save(pokemonTypeEntity);
     }
