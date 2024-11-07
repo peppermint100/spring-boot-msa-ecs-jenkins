@@ -1,0 +1,35 @@
+server:
+  port: 60001
+
+spring:
+  application:
+    name: pokemon-service
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
+    generate-ddl: true
+  datasource:
+    url: jdbc:mysql://poke-mysql:3306/pokemon
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+
+developer:
+  kafka:
+    bootstrap-server: {BOOTSTRAP-SERVERS}
+
+pokemon-type-service-url: ${POKEMON-TYPE-SERVICE-URL}

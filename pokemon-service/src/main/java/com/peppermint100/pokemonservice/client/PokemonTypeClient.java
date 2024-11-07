@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "pokemon-type-service")
+@FeignClient(name = "pokemon-type-service", url = "${pokemon-type-service-url}")
 public interface PokemonTypeClient {
 
     @GetMapping("/pokemon-types")
