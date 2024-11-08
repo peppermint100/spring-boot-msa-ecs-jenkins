@@ -13,4 +13,6 @@ WORKDIR /app
 
 COPY --from=build /app/target/pokemon-type-service-1.0.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENV USE_PROFILE=k8s
+
+ENTRYPOINT ["java", "-Dspring.profiles.active=${USE_PROFILE}", "-jar", "app.jar"]
