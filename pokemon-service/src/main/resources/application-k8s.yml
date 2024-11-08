@@ -30,6 +30,6 @@ management:
 
 developer:
   kafka:
-    bootstrap-server: {BOOTSTRAP-SERVERS}
+    bootstrap-server: ${BOOTSTRAP-SERVERS}
 
 pokemon-type-service-url: ${POKEMON-TYPE-SERVICE-URL}
