@@ -23,7 +23,7 @@ spring:
     defer-datasource-initialization: true
     generate-ddl: true
   datasource:
-    url: jdbc:mysql://localhost:3306/pokemon
+    url: jdbc:mysql://localhost:30003/pokemon
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,3 +36,8 @@ management:
     web:
       exposure:
         include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+
+developer:
+  kafka:
+    bootstrap-server: http://localhost:9092
+
